@@ -119,24 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &223946569 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4203005320257598424, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-  m_PrefabInstance: {fileID: 3923196458018795999}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &223946570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223946569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c8410e530dc834888c60d6e5e31c2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeerPickup
-  promptText: {fileID: 1003482319}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +165,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -198,7 +180,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1066,6 +1048,9 @@ MonoBehaviour:
   buildUpTime: 5
   mainCam: {fileID: 330585545}
   blurMaterial: {fileID: 2100000, guid: cb62603a8d242ab428ec6012511e2e06, type: 2}
+  rollStrength: 5
+  pitchStrength: 2
+  yawStrength: 2
 --- !u!1 &1949341088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1130,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3923196458018795999
+--- !u!1001 &7479164217762113877
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1153,78 +1138,59 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2910817212541075383, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_Height
-      value: 1.996614
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910817212541075383, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_Radius
-      value: 0.24121997
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910817212541075383, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0053815073
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910817212541075383, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_Center.y
-      value: -0.0000005847131
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910817212541075383, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4203005320257598424, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      propertyPath: m_Name
-      value: Beer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8297628280210068701, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
+      propertyPath: promptText
+      value: 
+      objectReference: {fileID: 1003482319}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.892
+      value: -1.1015818
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.025
+      value: -1.66
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.398
+      value: -2.42
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071067
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5097142952712104067, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    - target: {fileID: 8585430074449363805, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8966178154657012199, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
+      propertyPath: m_Name
+      value: empty_beer_bottle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4203005320257598424, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 223946570}
-  m_SourcePrefab: {fileID: 100100000, guid: a4bb41aa10f27de4d93864a638daeb47, type: 3}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1d511e47085721d49a4a62163dae443f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1234,6 +1200,6 @@ SceneRoots:
   - {fileID: 1332206897}
   - {fileID: 588583314}
   - {fileID: 596470126}
-  - {fileID: 3923196458018795999}
   - {fileID: 642494840}
   - {fileID: 1949341091}
+  - {fileID: 7479164217762113877}
