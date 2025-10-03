@@ -855,6 +855,8 @@ PrefabInstance:
     - {fileID: -4185548769020137043, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
     - {fileID: -7765204278768451868, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
     - {fileID: 8489274161692671577, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
+    - {fileID: 5905245186969298800, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
+    - {fileID: -4091792821388611644, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
@@ -1347,6 +1349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac8abf54913bfc4283ce89669f28ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBeerSystem
+  drunkness: 0
+  maxDrunkness: 1
   effectDuration: 25
   buildUpTime: 5
   mainCam: {fileID: 330585545}
@@ -1377,6 +1381,8 @@ GameObject:
   - component: {fileID: 1339821857}
   - component: {fileID: 1339821856}
   - component: {fileID: 1339821862}
+  - component: {fileID: 1339821864}
+  - component: {fileID: 1339821863}
   m_Layer: 0
   m_Name: Box colliders
   m_TagString: Untagged
@@ -1695,8 +1701,50 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3844986, y: 2.30828, z: 0.51971817}
-  m_Center: {x: 5.886159, y: -0.65414, z: -19.30689}
+  m_Size: {x: 0.3844986, y: 3.0953748, z: 0.51971817}
+  m_Center: {x: 5.886159, y: -0.26059258, z: -19.30689}
+--- !u!65 &1339821863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339821847}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.30790997, y: 3.1073139, z: 0.32466125}
+  m_Center: {x: 6.054686, y: -0.54346573, z: -28.400806}
+--- !u!65 &1339821864
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339821847}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.40929747, y: 3.095912, z: 0.29925156}
+  m_Center: {x: -3.1911123, y: -0.26325768, z: -19.322657}
 --- !u!1 &1467614517 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 81702735196247845b2e950dccd98786, type: 3}
