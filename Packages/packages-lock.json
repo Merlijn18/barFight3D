@@ -268,6 +268,10 @@
       }
     },
     "com.unity.visualscripting": {
+<<<<<<< Updated upstream
+=======
+      "version": "1.9.7",
+>>>>>>> Stashed changes
       "version": "1.9.8",
       "depth": 0,
       "source": "registry",
