@@ -25,6 +25,12 @@ public class BeerPickup : MonoBehaviour
             player.DrinkBeer();      // Start dronken effect
             Destroy(gameObject);     // Bier verdwijnt
 
+            // Respawn dit bierobject na 60 seconden
+            if (BeerSpawnManager.Instance != null)
+            {
+                BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 60f);
+            }
+
             if (promptText != null)
                 promptText.text = "";
         }
