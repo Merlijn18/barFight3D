@@ -60,10 +60,13 @@ public class PlayerBeerSystem : MonoBehaviour
             float pitch = Mathf.Cos(Time.time * 2.5f) * pitchStrength * drunkness;
             float yaw = Mathf.Sin(Time.time * 2f) * yawStrength * drunkness;
 
-            // Combineer met bestaande camera rotatie
+            // Haal huidige rotatie op zodat X en Y (muiskijk) behouden blijven
+            Vector3 currentRotation = mainCam.transform.localEulerAngles;
+
+            // Combineer bestaande rotatie met de dronken wobble
             mainCam.transform.localRotation = Quaternion.Euler(
-                pitch,
-                mainCam.transform.localEulerAngles.y + yaw,
+                currentRotation.x + pitch,
+                currentRotation.y + yaw,
                 roll
             );
         }
@@ -74,4 +77,5 @@ public class PlayerBeerSystem : MonoBehaviour
             blurMaterial.SetFloat("_Strength", blurStrength);
         }
     }
+
 }
