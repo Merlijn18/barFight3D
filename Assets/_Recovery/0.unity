@@ -688,6 +688,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!154 &588583315
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588583310}
@@ -1505,8 +1509,6 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.8635902, y: 12.720586, z: 0}
-  m_Center: {x: -3.9317951, y: 1.8602929, z: -13}
   m_Size: {x: 4.5128856, y: 12.720586, z: 0}
   m_Center: {x: -4.607147, y: 1.8602929, z: -13}
 --- !u!65 &1339821855
@@ -1528,8 +1530,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.8, y: 13, z: 0}
-  m_Center: {x: 3.4, y: 2, z: -13}
+  m_Size: {x: 5.0838437, y: 13, z: 0}
+  m_Center: {x: 3.2580783, y: 2, z: -13}
 --- !u!65 &1339821856
 BoxCollider:
   m_ObjectHideFlags: 0
