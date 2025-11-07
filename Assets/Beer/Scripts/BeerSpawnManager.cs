@@ -23,7 +23,9 @@ public class BeerSpawnManager : MonoBehaviour
 
     public void SpawnBeer(Vector3 pos, Quaternion rot)
     {
-        Instantiate(beerPrefab, pos, rot);
+        // Forceer dat het bier rechtop staat (X = -89.98)
+        Quaternion uprightRotation = Quaternion.Euler(-89.98f, 0f, 0f);
+        Instantiate(beerPrefab, pos, uprightRotation);
     }
 
     public void RespawnBeer(Vector3 pos, Quaternion rot, float delay)
