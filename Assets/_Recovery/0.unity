@@ -403,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 446167420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: -0.88, z: 14.154}
+  m_LocalPosition: {x: 1.862, y: -0.88, z: 13.468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1834,8 +1834,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1467614517}
   spawnPoint: {fileID: 446167421}
   doorTrigger: {fileID: 1633347238}
-  enemiesPerWave: 1
-  timeBetweenWaves: 100000000
+  enemiesPerWave: 3
+  timeBetweenWaves: 15
 --- !u!4 &2046380406
 Transform:
   m_ObjectHideFlags: 0
@@ -2136,13 +2136,25 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 3.39
       objectReference: {fileID: 0}
+    - target: {fileID: 6922335264570350614, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922335264570350614, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922335264570350614, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7069572803259267366, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7590812424898847644, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.68
+      value: 7.55
       objectReference: {fileID: 0}
     - target: {fileID: 7590812424898847644, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2150,7 +2162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7590812424898847644, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.65625
+      value: 13.06
       objectReference: {fileID: 0}
     - target: {fileID: 7590812424898847644, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2184,6 +2196,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 794646344}
+    - target: {fileID: 8334509280195657883, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
+      propertyPath: chaseRange
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
