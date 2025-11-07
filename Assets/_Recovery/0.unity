@@ -199,9 +199,12 @@ CanvasRenderer:
   m_GameObject: {fileID: 11508434}
   m_CullTransparentMesh: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &66046905
 GameObject:
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &46917074 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2586130241105189943, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
@@ -209,11 +212,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &46917079
 MeshCollider:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   serializedVersion: 6
   m_Component:
@@ -251,6 +258,9 @@ BoxCollider:
 =======
   m_GameObject: {fileID: 46917074}
 >>>>>>> Stashed changes
+=======
+  m_GameObject: {fileID: 46917074}
+>>>>>>> Stashed changes
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -260,6 +270,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -267,6 +278,8 @@ BoxCollider:
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 =======
+=======
+>>>>>>> Stashed changes
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -274,6 +287,9 @@ BoxCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -768733419891655112, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1 &410087039
 GameObject:
@@ -1525,9 +1541,12 @@ MonoBehaviour:
   openSpeed: 2
   direction: -1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1535880905
 GameObject:
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1540519132 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1361245053780515343, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
@@ -1535,11 +1554,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &1540519136
 MeshCollider:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   serializedVersion: 6
   m_Component:
@@ -1577,6 +1600,9 @@ BoxCollider:
 =======
   m_GameObject: {fileID: 1540519132}
 >>>>>>> Stashed changes
+=======
+  m_GameObject: {fileID: 1540519132}
+>>>>>>> Stashed changes
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1585,6 +1611,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -1646,6 +1673,8 @@ BoxCollider:
   m_Size: {x: 3.8909512, y: 1, z: 1}
   m_Center: {x: 0.072431564, y: 0, z: 0}
 =======
+=======
+>>>>>>> Stashed changes
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -1653,6 +1682,9 @@ BoxCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1640709938886197008, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1 &1633347237
 GameObject:
