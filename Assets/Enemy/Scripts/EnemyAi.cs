@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public Transform player;
-    public float chaseRange = 10f;
+    public float chaseRange = 30f;
     public float attackRange = 2f;
     public float attackCooldown = 2f;
 
