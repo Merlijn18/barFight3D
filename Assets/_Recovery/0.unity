@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f1a5ec6b120474ebdf92fcb8720542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
+  moveSpeed: 7
   lookSensitivity: 0.1
   playerCamera: {fileID: 2139921214}
   animator: {fileID: 794646347}
@@ -1854,8 +1854,9 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1467614517}
   spawnPoint: {fileID: 446167421}
   doorTrigger: {fileID: 1633347238}
-  enemiesPerWave: 3
-  timeBetweenWaves: 15
+  enemiesPerWave: 5
+  delayBetweenSpawns: 1
+  delayBetweenWaves: 3
 --- !u!4 &2046380406
 Transform:
   m_ObjectHideFlags: 0
