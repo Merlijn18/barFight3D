@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Health Settings")]
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     [Header("AI Components")]
     private NavMeshAgent agent;
@@ -28,6 +28,13 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
+        // Zorg ervoor dat de agent is geladen en op de NavMesh staat
+        if (agent == null)
+        {
+            Debug.LogError("NavMeshAgent component ontbreekt op " + gameObject.name);
+            return;
+        }
+
         // Zet stoppingDistance op attackRange
         agent.stoppingDistance = attackRange;
         lastAttackTime = -attackCooldown; // zodat hij meteen kan aanvallen
@@ -35,6 +42,8 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        // Controleer of de agent actief is.
+        if (agent == null || !agent.enabled) return;
         if (player == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
@@ -54,7 +63,12 @@ public class EnemyAI : MonoBehaviour
             {
                 // Bewegen naar speler
                 agent.isStopped = false;
-                agent.SetDestination(player.position);
+
+                // Voorkom fout als de speler niet op de NavMesh is (hoewel de agent.SetDestination dit al opvangt)
+                if (agent.isOnNavMesh)
+                {
+                    agent.SetDestination(player.position);
+                }
 
                 // Smooth rotatie richting speler
                 agent.updateRotation = false;
@@ -72,6 +86,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            // Buiten bereik: stoppen
             agent.isStopped = true;
             animator.SetBool("isWalking", false);
         }
@@ -81,8 +96,7 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("Enemy valt aan!");
         animator.SetTrigger("attack");
-        // Hier kun je speler damage laten ontvangen, bijvoorbeeld:
-        // player.GetComponent<PlayerHealth>().TakeDamage(10);
+        // Hier kun je speler damage laten ontvangen
     }
 
     // 📉 Damage-functie voor als speler aanvalt
@@ -95,7 +109,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("hit"); // optioneel, als je een hit-animatie hebt
+            animator.SetTrigger("hit"); // optioneel
         }
     }
 
@@ -104,7 +118,14 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("Enemy dood: " + gameObject.name);
         animator.SetTrigger("die");
-        agent.isStopped = true;
+
+        // FIX: Zorg ervoor dat de NavMeshAgent stopt en wordt uitgeschakeld om de "Stop" error te voorkomen.
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.enabled = false; // CRUCIALE FIX
+        }
+        animator.SetBool("isWalking", false);
 
         // WaveManager op de hoogte brengen
         onDeath?.Invoke();
