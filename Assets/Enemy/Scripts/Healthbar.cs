@@ -8,23 +8,35 @@ public class Healthbar : MonoBehaviour
     public Image background; // Optioneel: voor een achtergrond
 
     [Header("Enemy Settings")]
-    public EnemyAI enemy; // Sleep hier de Enemy in waarvan je de health wilt laten zien
+    public EnemyAI enemy; // Wordt automatisch opgehaald als het niet handmatig is gekoppeld
+
+    void Start()
+    {
+        // Als enemy nog niet gekoppeld is, zoek het component in parent prefab
+        if (enemy == null)
+        {
+            enemy = GetComponentInParent<EnemyAI>();
+            if (enemy == null)
+            {
+                Debug.LogError("Healthbar kan geen EnemyAI vinden in parent prefab!");
+            }
+        }
+    }
 
     void Update()
     {
         if (enemy == null || enemy.maxHealth <= 0) return;
 
-        // Bereken health percentage: 1.0 is vol, 0.0 is leeg. Dit is de correcte logica.
+        // Bereken health percentage
         float healthPercent = (float)enemy.currentHealth / enemy.maxHealth;
 
         // Update de UI
         if (foreground != null)
         {
-            // foreground.fillAmount wordt geüpdatet van 1.0 (vol) naar 0.0 (leeg)
             foreground.fillAmount = Mathf.Clamp01(healthPercent);
         }
 
-        // Optioneel: Zorgt ervoor dat de healthbar naar de camera kijkt (voor World Space Canvassen)
+        // Laat de healthbar naar de camera kijken (voor World Space Canvas)
         if (Camera.main != null)
         {
             transform.LookAt(Camera.main.transform);
