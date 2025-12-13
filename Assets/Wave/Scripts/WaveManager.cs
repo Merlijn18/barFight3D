@@ -1,87 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;              // Prefab van de vijand
-    public Transform spawnPoint;                 // Waar vijanden spawnen (bij de deur)
-    public DoubleDoorTrigger doorTrigger;        // Trigger die deuren bedient
+    [Header("Wave Instellingen")]
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform playerTarget;
 
-    public int enemiesPerWave = 5;               // Aantal vijanden per wave
-    public float delayBetweenSpawns = 1f;        // Tijd tussen spawns van individuele vijanden
-    public float delayBetweenWaves = 3f;         // Optioneel: korte pauze tussen waves
+    [Header("Timing en Aantallen")]
+    [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private float delayBetweenSpawns = 1f;
+    [SerializeField] private float delayBetweenWaves = 3f;
 
     private int currentWave = 0;
-    private List<GameObject> activeEnemies = new List<GameObject>();
+    private readonly List<GameObject> activeEnemies = new();
+    private Coroutine waveRoutine;
 
     void Start()
     {
-        StartCoroutine(StartNextWave());
-    }
-
-    IEnumerator StartNextWave()
-    {
-        currentWave++;
-        Debug.Log("Start wave " + currentWave);
-
-        doorTrigger.SetEnemiesToPass(enemiesPerWave);
-        doorTrigger.OpenDoors();
-
-        yield return new WaitForSeconds(1.5f); // Wacht tot deuren open zijn
-
-        // Spawn alle vijanden
-        for (int i = 0; i < enemiesPerWave; i++)
+        // Player zoeken
+        if (!playerTarget)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(delayBetweenSpawns);
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player)
+                playerTarget = player.transform;
+            else
+            {
+                Debug.LogError("Player met tag 'Player' niet gevonden.");
+                return;
+            }
         }
 
-        // Wacht tot alle vijanden dood zijn
-        yield return StartCoroutine(WaitForEnemiesToDie());
+        // Validatie
+        if (!enemyPrefab || !spawnPoint)
+        {
+            Debug.LogError("WaveManager mist enemyPrefab of spawnPoint.");
+            return;
+        }
 
-        // Optioneel: korte pauze tussen waves
-        yield return new WaitForSeconds(delayBetweenWaves);
-
-        // Start volgende wave
-        StartCoroutine(StartNextWave());
+        waveRoutine = StartCoroutine(WaveLoop());
     }
 
-    void SpawnEnemy()
+    private void OnDisable()
     {
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        StopAllCoroutines();
+    }
+
+    private IEnumerator WaveLoop()
+    {
+        while (true)
+        {
+            currentWave++;
+            Debug.Log($"Start wave {currentWave}");
+
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+                SpawnEnemy();
+                yield return new WaitForSeconds(delayBetweenSpawns);
+            }
+
+            yield return WaitForEnemiesToDie();
+
+            Debug.Log($"Wave {currentWave} voltooid!");
+
+            // Kleine difficulty scaling
+            enemiesPerWave++;
+
+            yield return new WaitForSeconds(delayBetweenWaves);
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        if (enemyPrefab == null)
+        {
+            Debug.LogError("Enemy prefab is niet gekoppeld!");
+            return;
+        }
+
+        GameObject enemy = Instantiate(
+            enemyPrefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
+
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-
-        if (enemyAI != null)
+        if (enemyAI)
         {
-            enemyAI.player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-        else
-        {
-            Debug.LogWarning("EnemyAI script niet gevonden op vijand prefab!");
+            enemyAI.player = playerTarget;
+            enemyAI.onDeath += OnEnemyDied;
         }
 
         activeEnemies.Add(enemy);
-        enemy.GetComponent<EnemyAI>().onDeath += () => OnEnemyDied(enemy);
-
     }
 
-    void OnEnemyDied(GameObject enemy)
+    private void OnEnemyDied(GameObject enemy)
     {
-        if (activeEnemies.Contains(enemy))
-        {
+        if (enemy != null)
             activeEnemies.Remove(enemy);
-        }
     }
 
-    IEnumerator WaitForEnemiesToDie()
+    private IEnumerator WaitForEnemiesToDie()
     {
-        // Wacht tot alle vijanden uit de lijst verdwenen zijn
-        while (activeEnemies.Count > 0)
+        while (activeEnemies.Any(e => e != null))
         {
+            activeEnemies.RemoveAll(e => e == null);
             yield return null;
         }
-
-        Debug.Log("Wave " + currentWave + " is voorbij!");
     }
 }

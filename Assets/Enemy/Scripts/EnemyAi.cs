@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     private float lastAttackTime;
 
     // Callback voor WaveManager
-    public Action onDeath;
+    public Action<GameObject> onDeath;
 
     void Start()
     {
@@ -28,31 +28,27 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        // Zorg ervoor dat de agent is geladen en op de NavMesh staat
-        if (agent == null)
+        if (!agent || !animator)
         {
-            Debug.LogError("NavMeshAgent component ontbreekt op " + gameObject.name);
+            Debug.LogError("Enemy mist NavMeshAgent of Animator: " + gameObject.name);
+            enabled = false;
             return;
         }
 
-        // Zet stoppingDistance op attackRange
         agent.stoppingDistance = attackRange;
-        lastAttackTime = -attackCooldown; // zodat hij meteen kan aanvallen
+        lastAttackTime = -attackCooldown;
     }
 
     void Update()
     {
-        // Controleer of de agent actief is.
-        if (agent == null || !agent.enabled) return;
-        if (player == null) return;
+        if (!agent.enabled || !player) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance <= chaseRange)
         {
-            if (distance <= attackRange && Time.time > lastAttackTime + attackCooldown)
+            if (distance <= attackRange && Time.time >= lastAttackTime + attackCooldown)
             {
-                // Stoppen en aanvallen
                 agent.isStopped = true;
                 animator.SetBool("isWalking", false);
 
@@ -61,76 +57,65 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                // Bewegen naar speler
                 agent.isStopped = false;
 
-                // Voorkom fout als de speler niet op de NavMesh is (hoewel de agent.SetDestination dit al opvangt)
                 if (agent.isOnNavMesh)
-                {
                     agent.SetDestination(player.position);
-                }
 
-                // Smooth rotatie richting speler
-                agent.updateRotation = false;
-                Vector3 direction = (player.position - transform.position).normalized;
-                direction.y = 0;
-
-                if (direction.magnitude > 0.1f)
-                {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-                }
-
+                RotateTowardsPlayer();
                 animator.SetBool("isWalking", true);
             }
         }
         else
         {
-            // Buiten bereik: stoppen
             agent.isStopped = true;
             animator.SetBool("isWalking", false);
         }
     }
 
-    void AttackPlayer()
+    private void RotateTowardsPlayer()
     {
-        Debug.Log("Enemy valt aan!");
-        animator.SetTrigger("attack");
-        // Hier kun je speler damage laten ontvangen
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0;
+
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
     }
 
-    // 📉 Damage-functie voor als speler aanvalt
+    private void AttackPlayer()
+    {
+        animator.SetTrigger("attack");
+        // TODO: speler damage geven
+    }
+
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+
         if (currentHealth <= 0)
-        {
             Die();
-        }
         else
-        {
-            animator.SetTrigger("hit"); // optioneel
-        }
+            animator.SetTrigger("hit");
     }
 
-    // 💀 Doodgaan van de vijand
-    void Die()
+    private void Die()
     {
-        Debug.Log("Enemy dood: " + gameObject.name);
-        animator.SetTrigger("die");
-
-        // FIX: Zorg ervoor dat de NavMeshAgent stopt en wordt uitgeschakeld om de "Stop" error te voorkomen.
-        if (agent != null)
+        if (agent.enabled)
         {
             agent.isStopped = true;
-            agent.enabled = false; // CRUCIALE FIX
+            agent.enabled = false;
         }
+
+        animator.SetTrigger("die");
         animator.SetBool("isWalking", false);
 
-        // WaveManager op de hoogte brengen
-        onDeath?.Invoke();
+        // WaveManager informeren
+        onDeath?.Invoke(gameObject);
+        onDeath = null; // voorkomt callback op destroyed object
 
-        // Verwijder na korte tijd (zodat animatie kan afspelen)
         Destroy(gameObject, 2f);
     }
 }
