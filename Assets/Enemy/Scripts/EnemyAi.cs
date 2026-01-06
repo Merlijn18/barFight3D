@@ -1,121 +1,190 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 
 public class EnemyAI : MonoBehaviour
 {
     [Header("Player Targeting")]
     public Transform player;
-    public float chaseRange = 100f;
-    public float attackRange = 2f;
-    public float attackCooldown = 2f;
+    public float chaseRange = 15f;       // Kortere achtervolgingsafstand
+    public float attackRange = 1.5f;     // Kortere aanvalafstand
+    public float attackCooldown = 3f;    // Langzamere aanvallen
+
+    [Header("Attack Settings")]
+    public int damage = 5;               // Minder schade
 
     [Header("Health Settings")]
     public int maxHealth = 100;
-    public int currentHealth;
+    [SerializeField] private int currentHealth;
 
-    [Header("AI Components")]
+    [Header("UI")]
+    public Slider healthBar;
+
     private NavMeshAgent agent;
     private Animator animator;
-    private float lastAttackTime;
+    private float lastAttackTime = -999f;
 
-    // Callback voor WaveManager
     public Action<GameObject> onDeath;
+    public int CurrentHealth => currentHealth;
 
     void Start()
     {
         currentHealth = maxHealth;
+
+        // Player automatisch vinden als niet ingesteld
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null)
+            {
+                player = p.transform;
+                Debug.Log("Player automatically assigned: " + player.name);
+            }
+            else
+            {
+                Debug.LogError("Player object met tag 'Player' niet gevonden!");
+            }
+        }
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        if (!agent || !animator)
-        {
-            Debug.LogError("Enemy mist NavMeshAgent of Animator: " + gameObject.name);
-            enabled = false;
-            return;
-        }
+        if (agent != null)
+            agent.stoppingDistance = attackRange;
 
-        agent.stoppingDistance = attackRange;
-        lastAttackTime = -attackCooldown;
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
     }
 
     void Update()
     {
-        if (!agent.enabled || !player) return;
+        if (player == null || currentHealth <= 0) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance <= chaseRange)
+        if (distance > chaseRange)
         {
-            if (distance <= attackRange && Time.time >= lastAttackTime + attackCooldown)
-            {
-                agent.isStopped = true;
-                animator.SetBool("isWalking", false);
-
-                AttackPlayer();
-                lastAttackTime = Time.time;
-            }
-            else
-            {
-                agent.isStopped = false;
-
-                if (agent.isOnNavMesh)
-                    agent.SetDestination(player.position);
-
-                RotateTowardsPlayer();
-                animator.SetBool("isWalking", true);
-            }
+            StopMoving();
+        }
+        else if (distance <= attackRange)
+        {
+            TryAttack(distance);
         }
         else
         {
-            agent.isStopped = true;
-            animator.SetBool("isWalking", false);
+            ChasePlayer();
         }
+    }
+
+    private void ChasePlayer()
+    {
+        if (agent != null && agent.enabled)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(player.position);
+        }
+
+        RotateTowardsPlayer();
+        if (animator != null)
+            animator.SetBool("isWalking", true);
+    }
+
+    private void StopMoving()
+    {
+        if (agent != null && agent.enabled)
+            agent.isStopped = true;
+
+        if (animator != null)
+            animator.SetBool("isWalking", false);
+    }
+
+    private void TryAttack(float distance)
+    {
+        StopMoving();
+        RotateTowardsPlayer();
+
+        // Check cooldown
+        if (Time.time >= lastAttackTime + attackCooldown)
+        {
+            lastAttackTime = Time.time;
+
+            if (animator != null)
+                animator.SetTrigger("attack");
+
+            if (distance <= attackRange + 0.4f)
+            {
+                DealDamage();
+            }
+        }
+    }
+
+    private void DealDamage()
+    {
+        if (player == null)
+        {
+            Debug.LogWarning("Player is null! Enemy kan geen damage doen.");
+            return;
+        }
+
+        PlayerHealth ph = player.GetComponentInChildren<PlayerHealth>();
+
+        if (ph != null)
+        {
+            ph.TakeDamage(damage);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerHealth component niet gevonden op Player of child!");
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (healthBar != null)
+            healthBar.value = currentHealth;
+
+        if (currentHealth <= 0)
+            Die();
+        else if (animator != null)
+            animator.SetTrigger("hit");
+    }
+
+    private void Die()
+    {
+        if (agent != null)
+            agent.enabled = false;
+
+        if (animator != null)
+            animator.SetTrigger("die");
+
+        onDeath?.Invoke(gameObject);
+        Destroy(gameObject, 3f);
     }
 
     private void RotateTowardsPlayer()
     {
+        if (player == null) return;
+
         Vector3 direction = (player.position - transform.position).normalized;
         direction.y = 0;
 
         if (direction.sqrMagnitude > 0.01f)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                lookRotation,
+                Time.deltaTime * 5f
+            );
         }
-    }
-
-    private void AttackPlayer()
-    {
-        animator.SetTrigger("attack");
-        // TODO: speler damage geven
-    }
-
-    public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
-
-        if (currentHealth <= 0)
-            Die();
-        else
-            animator.SetTrigger("hit");
-    }
-
-    private void Die()
-    {
-        if (agent.enabled)
-        {
-            agent.isStopped = true;
-            agent.enabled = false;
-        }
-
-        animator.SetTrigger("die");
-        animator.SetBool("isWalking", false);
-
-        // WaveManager informeren
-        onDeath?.Invoke(gameObject);
-        onDeath = null; // voorkomt callback op destroyed object
-
-        Destroy(gameObject, 2f);
     }
 }
