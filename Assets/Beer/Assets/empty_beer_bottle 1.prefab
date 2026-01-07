@@ -103,7 +103,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0121264495
+  m_Radius: 0.06
   m_Height: 0.048854835
   m_Direction: 2
   m_Center: {x: 0.0004480207, y: 0.001979586, z: 0.021941738}
@@ -120,3 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeerPickup
   promptText: {fileID: 9044680936755524845, guid: 43965d8f196fa3f4aa8d3824d86b8ed0, type: 3}
+  healAmount: 50

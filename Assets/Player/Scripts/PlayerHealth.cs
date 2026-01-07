@@ -10,17 +10,15 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
-    // Property om currentHealth van buitenaf te lezen
     public int CurrentHealth => currentHealth;
 
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
         Debug.Log($"PlayerHealth initialized. HP: {currentHealth}/{maxHealth}");
     }
 
-    // Wordt aangeroepen door Enemy
     public void TakeDamage(int damage)
     {
         if (currentHealth <= 0)
@@ -28,8 +26,6 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Player already dead, ignoring damage");
             return;
         }
-
-        Debug.Log($"TakeDamage called with {damage}");
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -44,6 +40,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        if (currentHealth <= 0) return; // speler dood, niet helen
+
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        UpdateHealthUI();
+
+        Debug.Log($"Player healed by {amount}. HP: {currentHealth}/{maxHealth}");
+    }
+
     private void UpdateHealthUI()
     {
         if (healthBar != null)
@@ -56,7 +64,6 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("PLAYER IS DEAD");
-        // Stop tijd of movement
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // stop de tijd
     }
 }

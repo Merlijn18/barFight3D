@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
@@ -8,11 +8,16 @@ public class BeerPickup : MonoBehaviour
     [Header("UI")]
     public Text promptText;
 
+    [Header("Health")]
+    public int healAmount = 50;
+
     private bool inRange = false;
     private PlayerBeerSystem player;
+    private PlayerHealth playerHealth;
 
     private void Reset()
     {
+        // Zorg dat de collider trigger is
         Collider col = GetComponent<Collider>();
         if (col != null)
             col.isTrigger = true;
@@ -22,30 +27,34 @@ public class BeerPickup : MonoBehaviour
     {
         if (inRange && player != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            player.DrinkBeer();      // Start dronken effect
-            Destroy(gameObject);     // Bier verdwijnt
+            player.DrinkBeer();
 
-            // Respawn dit bierobject na 60 seconden
+            if (playerHealth != null)
+                playerHealth.Heal(healAmount);
+
             if (BeerSpawnManager.Instance != null)
-            {
-                BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 60f);
-            }
+                BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 10f);
 
             if (promptText != null)
                 promptText.text = "";
+
+            Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         PlayerBeerSystem p = other.GetComponent<PlayerBeerSystem>();
+        PlayerHealth h = other.GetComponent<PlayerHealth>();
+
         if (p != null)
         {
             inRange = true;
             player = p;
+            playerHealth = h;
 
             if (promptText != null)
-                promptText.text = "Druk [E] om bier te drinken";
+                promptText.text = $"Druk [E] om bier te drinken (+{healAmount} HP)";
         }
     }
 
@@ -56,6 +65,7 @@ public class BeerPickup : MonoBehaviour
         {
             inRange = false;
             player = null;
+            playerHealth = null;
 
             if (promptText != null)
                 promptText.text = "";
