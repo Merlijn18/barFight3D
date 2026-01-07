@@ -2336,6 +2336,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1001 &783165350
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 495127687355346740, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: promptText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_Name
+      value: empty_beer_bottle 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.723177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
 --- !u!1 &794646341 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 613eedeaa32602c4f85cfa6ea413193d, type: 3}
@@ -3080,6 +3145,71 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -153830957423991239, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
+--- !u!1001 &1076050283
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 495127687355346740, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: promptText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_Name
+      value: empty_beer_bottle 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.431
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525525907439990320, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
 --- !u!64 &1087002678
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3462,6 +3592,7 @@ MonoBehaviour:
   beerPrefab: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
   spawnZones:
   - {fileID: 1759877027}
+  promptText: {fileID: 0}
 --- !u!4 &1454758545
 Transform:
   m_ObjectHideFlags: 0
@@ -5138,8 +5269,10 @@ SceneRoots:
   - {fileID: 2046380406}
   - {fileID: 446167421}
   - {fileID: 1215355850}
+  - {fileID: 1076050283}
   - {fileID: 2137874256}
   - {fileID: 1782569693}
   - {fileID: 1454758545}
   - {fileID: 1759877027}
   - {fileID: 2071661667}
+  - {fileID: 783165350}
