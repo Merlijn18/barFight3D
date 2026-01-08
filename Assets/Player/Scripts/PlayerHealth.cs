@@ -10,7 +10,25 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
+    [Header("Audio")]
+    public AudioClip damageSound;       // "ouch" geluid
+    [Range(0f, 1f)] public float damageVolume = 1f; // volume van damage geluid
+
+    private AudioSource audioSource;
+
     public int CurrentHealth => currentHealth;
+
+    private void Awake()
+    {
+        // Voeg AudioSource toe als die er nog niet is
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f; // 2D geluid
+        audioSource.volume = damageVolume;
+    }
 
     private void Start()
     {
@@ -19,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log($"PlayerHealth initialized. HP: {currentHealth}/{maxHealth}");
     }
 
+    // DAMAGE METHOD
     public void TakeDamage(int damage)
     {
         if (currentHealth <= 0)
@@ -32,6 +51,12 @@ public class PlayerHealth : MonoBehaviour
 
         UpdateHealthUI();
 
+        // Speel damage geluid
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound, damageVolume);
+        }
+
         Debug.Log($"Player HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -40,6 +65,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // HEAL METHOD
     public void Heal(int amount)
     {
         if (currentHealth <= 0) return; // speler dood, niet helen

@@ -89,8 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   foreground: {fileID: 3522545635309362416}
-  background: {fileID: 9195612956064699708}
-  enemy: {fileID: 8660050085824005690}
 --- !u!1 &6687833646789788168
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +456,14 @@ MonoBehaviour:
   chaseRange: 10
   attackRange: 2
   attackCooldown: 1.5
+  damage: 5
   maxHealth: 100
   currentHealth: 0
+  healthBar: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 5e4d050e78f2c0e409c086282824974c, type: 3}
+  damageSound: {fileID: 8300000, guid: 9679c8150ec3da641b3dde7bbb9a0c93, type: 3}
+  deathVolume: 1
+  damageVolume: 1
 --- !u!95 &6981879047485622634
 Animator:
   serializedVersion: 7
