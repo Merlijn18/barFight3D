@@ -1857,9 +1857,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5148817236446094103, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 637625921}
-    - targetCorrespondingSourceObject: {fileID: 5148817236446094103, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 637625925}
     - targetCorrespondingSourceObject: {fileID: -8961359253771211100, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2031785168}
@@ -2504,28 +2501,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.4684644, y: 0.59737146, z: 0.030227838}
   m_Center: {x: 0.92897165, y: 0.055295166, z: 0.0043198164}
---- !u!64 &637625925
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637625917}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4579454407841743219, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
 --- !u!65 &716298575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6327,7 +6302,7 @@ PrefabInstance:
       objectReference: {fileID: 794646344}
     - target: {fileID: 8660050085824005690, guid: 78649bf15453b0347af8784245f4f7c7, type: 3}
       propertyPath: chaseRange
-      value: 10000000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8660050085824005690, guid: 78649bf15453b0347af8784245f4f7c7, type: 3}
       propertyPath: deathSound

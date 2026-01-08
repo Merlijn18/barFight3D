@@ -7,7 +7,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Player Targeting")]
     public Transform player;
-    public float chaseRange = 15f;
+    public float chaseRange = 100f;
     public float attackRange = 1.5f;
     public float attackCooldown = 3f;
 
@@ -18,12 +18,16 @@ public class EnemyAI : MonoBehaviour
     public int maxHealth = 100;
     [SerializeField] private int currentHealth;
 
+    [Header("Movement")]
+    [Range(0.1f, 1f)]
+    public float speedMultiplier = 0.5f; // 🔻 50% slomer
+
     [Header("UI")]
     public Slider healthBar;
 
     [Header("Audio")]
-    public AudioClip deathSound;      // bij dood
-    public AudioClip damageSound;     // bij schade
+    public AudioClip deathSound;
+    public AudioClip damageSound;
     [Range(0f, 1f)] public float deathVolume = 1f;
     [Range(0f, 1f)] public float damageVolume = 0.6f;
 
@@ -37,13 +41,12 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-        // AudioSource toevoegen als die er nog niet is
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0f; // 2D geluid, overal even hard
+        audioSource.spatialBlend = 0f;
     }
 
     void Start()
@@ -63,7 +66,10 @@ public class EnemyAI : MonoBehaviour
         animator = GetComponent<Animator>();
 
         if (agent != null)
+        {
             agent.stoppingDistance = attackRange;
+            agent.speed *= speedMultiplier; // ✅ enemy langzamer
+        }
 
         if (healthBar != null)
         {
@@ -144,11 +150,8 @@ public class EnemyAI : MonoBehaviour
         if (healthBar != null)
             healthBar.value = currentHealth;
 
-        // Speel damage geluid
         if (damageSound != null && audioSource != null)
-        {
             audioSource.PlayOneShot(damageSound, damageVolume);
-        }
 
         if (currentHealth <= 0)
             Die();
@@ -169,11 +172,11 @@ public class EnemyAI : MonoBehaviour
         if (deathSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(deathSound, deathVolume);
-            Destroy(gameObject, deathSound.length); // vernietig na afspelen
+            Destroy(gameObject, deathSound.length);
         }
         else
         {
-            Destroy(gameObject, 3f); // fallback
+            Destroy(gameObject, 3f);
         }
     }
 
