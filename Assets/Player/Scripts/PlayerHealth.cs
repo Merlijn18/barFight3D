@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // ✅ NODIG voor scene switching
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Slider healthBar;
 
     [Header("Audio")]
-    public AudioClip damageSound;       // "ouch" geluid
-    [Range(0f, 1f)] public float damageVolume = 1f; // volume van damage geluid
+    public AudioClip damageSound;
+    [Range(0f, 1f)] public float damageVolume = 1f;
 
     private AudioSource audioSource;
 
@@ -20,62 +21,46 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        // Voeg AudioSource toe als die er nog niet is
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0f; // 2D geluid
-        audioSource.volume = damageVolume;
+        audioSource.spatialBlend = 0f;
     }
 
     private void Start()
     {
+        Time.timeScale = 1f; // ✅ reset tijd (belangrijk bij reload)
         currentHealth = maxHealth;
         UpdateHealthUI();
-        Debug.Log($"PlayerHealth initialized. HP: {currentHealth}/{maxHealth}");
     }
 
-    // DAMAGE METHOD
+    // DAMAGE
     public void TakeDamage(int damage)
     {
-        if (currentHealth <= 0)
-        {
-            Debug.Log("Player already dead, ignoring damage");
-            return;
-        }
+        if (currentHealth <= 0) return;
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         UpdateHealthUI();
 
-        // Speel damage geluid
-        if (damageSound != null && audioSource != null)
-        {
+        if (damageSound != null)
             audioSource.PlayOneShot(damageSound, damageVolume);
-        }
-
-        Debug.Log($"Player HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
-    // HEAL METHOD
+    // HEAL
     public void Heal(int amount)
     {
-        if (currentHealth <= 0) return; // speler dood, niet helen
+        if (currentHealth <= 0) return;
 
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
         UpdateHealthUI();
-
-        Debug.Log($"Player healed by {amount}. HP: {currentHealth}/{maxHealth}");
     }
 
     private void UpdateHealthUI()
@@ -90,6 +75,8 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("PLAYER IS DEAD");
-        Time.timeScale = 0f; // stop de tijd
+
+        
+        SceneManager.LoadScene("Menu"); // ✅ scene wissel
     }
 }

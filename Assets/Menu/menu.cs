@@ -1,21 +1,36 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-public class menu : MonoBehaviour
+
+public class Menu : MonoBehaviour
 {
     public AudioSource backgroundMusic;
 
     void Start()
     {
-        
-        if (backgroundMusic != null && !backgroundMusic.isPlaying)
+        // ✅ Zorgt dat alles opnieuw werkt
+        Time.timeScale = 1f;
+
+        // ✅ Cursor altijd zichtbaar en vrij in menu
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        // ✅ Muziek correct starten (geen dubbele)
+        if (backgroundMusic != null)
         {
-            backgroundMusic.loop = true;
-            backgroundMusic.Play();
+            if (!backgroundMusic.isPlaying)
+            {
+                backgroundMusic.loop = true;
+                backgroundMusic.Play();
+            }
         }
     }
 
     public void StartGame()
     {
+        // ✅ Cursor locken voor gameplay
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         SceneManager.LoadScene("Main");
     }
 
@@ -24,6 +39,3 @@ public class menu : MonoBehaviour
         Application.Quit();
     }
 }
-
-
-
