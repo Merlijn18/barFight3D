@@ -7,12 +7,12 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Player Targeting")]
     public Transform player;
-    public float chaseRange = 15f;       // Kortere achtervolgingsafstand
-    public float attackRange = 1.5f;     // Kortere aanvalafstand
-    public float attackCooldown = 3f;    // Langzamere aanvallen
+    public float chaseRange = 15f;
+    public float attackRange = 1.5f;
+    public float attackCooldown = 3f;
 
     [Header("Attack Settings")]
-    public int damage = 5;               // Minder schade
+    public int damage = 5;
 
     [Header("Health Settings")]
     public int maxHealth = 100;
@@ -21,6 +21,13 @@ public class EnemyAI : MonoBehaviour
     [Header("UI")]
     public Slider healthBar;
 
+    [Header("Audio")]
+    public AudioClip deathSound;      // bij dood
+    public AudioClip damageSound;     // bij schade
+    [Range(0f, 1f)] public float deathVolume = 1f;
+    [Range(0f, 1f)] public float damageVolume = 0.6f;
+
+    private AudioSource audioSource;
     private NavMeshAgent agent;
     private Animator animator;
     private float lastAttackTime = -999f;
@@ -28,23 +35,28 @@ public class EnemyAI : MonoBehaviour
     public Action<GameObject> onDeath;
     public int CurrentHealth => currentHealth;
 
+    void Awake()
+    {
+        // AudioSource toevoegen als die er nog niet is
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f; // 2D geluid, overal even hard
+    }
+
     void Start()
     {
         currentHealth = maxHealth;
 
-        // Player automatisch vinden als niet ingesteld
         if (player == null)
         {
             GameObject p = GameObject.FindGameObjectWithTag("Player");
             if (p != null)
-            {
                 player = p.transform;
-                Debug.Log("Player automatically assigned: " + player.name);
-            }
             else
-            {
                 Debug.LogError("Player object met tag 'Player' niet gevonden!");
-            }
         }
 
         agent = GetComponent<NavMeshAgent>();
@@ -67,17 +79,11 @@ public class EnemyAI : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance > chaseRange)
-        {
             StopMoving();
-        }
         else if (distance <= attackRange)
-        {
             TryAttack(distance);
-        }
         else
-        {
             ChasePlayer();
-        }
     }
 
     private void ChasePlayer()
@@ -107,7 +113,6 @@ public class EnemyAI : MonoBehaviour
         StopMoving();
         RotateTowardsPlayer();
 
-        // Check cooldown
         if (Time.time >= lastAttackTime + attackCooldown)
         {
             lastAttackTime = Time.time;
@@ -116,30 +121,17 @@ public class EnemyAI : MonoBehaviour
                 animator.SetTrigger("attack");
 
             if (distance <= attackRange + 0.4f)
-            {
                 DealDamage();
-            }
         }
     }
 
     private void DealDamage()
     {
-        if (player == null)
-        {
-            Debug.LogWarning("Player is null! Enemy kan geen damage doen.");
-            return;
-        }
+        if (player == null) return;
 
         PlayerHealth ph = player.GetComponentInChildren<PlayerHealth>();
-
         if (ph != null)
-        {
             ph.TakeDamage(damage);
-        }
-        else
-        {
-            Debug.LogWarning("PlayerHealth component niet gevonden op Player of child!");
-        }
     }
 
     public void TakeDamage(int amount)
@@ -151,6 +143,12 @@ public class EnemyAI : MonoBehaviour
 
         if (healthBar != null)
             healthBar.value = currentHealth;
+
+        // Speel damage geluid
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound, damageVolume);
+        }
 
         if (currentHealth <= 0)
             Die();
@@ -167,7 +165,16 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger("die");
 
         onDeath?.Invoke(gameObject);
-        Destroy(gameObject, 3f);
+
+        if (deathSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(deathSound, deathVolume);
+            Destroy(gameObject, deathSound.length); // vernietig na afspelen
+        }
+        else
+        {
+            Destroy(gameObject, 3f); // fallback
+        }
     }
 
     private void RotateTowardsPlayer()

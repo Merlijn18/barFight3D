@@ -13,13 +13,9 @@ public class BeerPickup : MonoBehaviour
     public int healAmount = 50;
 
     [Header("Audio")]
-    public AudioClip openBottleSound;  // geluid fles openen
-    public AudioClip drinkSound;       // geluid drinken
-    [Range(0f, 1f)] public float audioVolume = 1f;       // standaard volume
-    [Range(0.9f, 1.1f)] public float pitchMin = 0.95f;   // minimale pitch drinkgeluid
-    [Range(0.9f, 1.1f)] public float pitchMax = 1.05f;   // maximale pitch drinkgeluid
-    [Range(1f, 2f)] public float openBottleVolumeMultiplier = 1.5f; // harder openen
-    [Range(1f, 2f)] public float drinkVolumeMultiplier = 1.5f;      // harder drinken
+    public AudioClip openBottleSound;
+    public AudioClip drinkSound;
+    [Range(0f, 1f)] public float audioVolume = 1f;
 
     private bool inRange = false;
     private PlayerBeerSystem player;
@@ -48,54 +44,51 @@ public class BeerPickup : MonoBehaviour
     {
         if (inRange && player != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
+            // Start het bierdrinkproces
             StartCoroutine(DrinkBeerSequence());
         }
     }
 
+    // Coroutine die alles afhandelt: geluid, heal, respawn, verwijderen
     private IEnumerator DrinkBeerSequence()
     {
-        // Fles openen, harder geluid
+        // Speel openen fles geluid
         if (openBottleSound != null)
-        {
-            audioSource.pitch = 1f;
-            audioSource.PlayOneShot(openBottleSound, Mathf.Clamp01(audioVolume * openBottleVolumeMultiplier));
-        }
+            audioSource.PlayOneShot(openBottleSound, audioVolume);
 
-        yield return new WaitForSeconds(0.5f);
+        // Start dronken effect
+        player.DrinkBeer();
 
-        // Drink 4 keer met pitch variatie en harder geluid
-        for (int i = 0; i < 4; i++)
-        {
-            if (drinkSound != null)
-            {
-                audioSource.pitch = Random.Range(pitchMin, pitchMax);
-                audioSource.PlayOneShot(drinkSound, Mathf.Clamp01(audioVolume * drinkVolumeMultiplier));
-            }
-            yield return new WaitForSeconds(0.3f);
-        }
-
-        // Voeg HP toe
+        // Heal speler
         if (playerHealth != null)
             playerHealth.Heal(healAmount);
 
-        if (player != null)
-            player.DrinkBeer();
+        // Speel drink geluid 4 keer hoorbaar
+        if (drinkSound != null)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                audioSource.PlayOneShot(drinkSound, audioVolume);
+                yield return new WaitForSeconds(drinkSound.length * 0.9f); // wacht bijna tot het geluid klaar is
+            }
+        }
 
-        // Respawn bier
-        if (BeerSpawnManager.Instance != null)
-            BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 10f);
-
-        // UI prompt verwijderen
+        // Verwijder UI prompt
         if (promptText != null)
             promptText.text = "";
 
+        // Respawn bier na 10 seconden
+        if (BeerSpawnManager.Instance != null)
+            BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 10f);
+
+        // Verwijder het bierobject pas NA het afspelen van alle geluiden
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         PlayerBeerSystem p = other.GetComponent<PlayerBeerSystem>();
-        PlayerHealth h = other.GetComponent<PlayerHealth>();
+        PlayerHealth h = other.GetComponentInChildren<PlayerHealth>();
 
         if (p != null)
         {

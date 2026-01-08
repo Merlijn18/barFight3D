@@ -5347,6 +5347,10 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 5e4d050e78f2c0e409c086282824974c, type: 3}
+    - target: {fileID: 8660050085824005690, guid: 78649bf15453b0347af8784245f4f7c7, type: 3}
+      propertyPath: damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9679c8150ec3da641b3dde7bbb9a0c93, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
