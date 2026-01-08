@@ -9,6 +9,23 @@ public class Weapon : MonoBehaviour
 
     private float lastFireTime = 0f;
 
+    [Header("Audio")]
+    public AudioClip shootSound;      // geluidsbestand voor schot
+    [Range(0f, 1f)] public float shootVolume = 0.5f; // volume, 0 = stil, 1 = max
+    private AudioSource audioSource;  // audio source component
+
+    private void Awake()
+    {
+        // Voeg AudioSource toe als deze nog niet bestaat
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.volume = shootVolume; // zet standaard volume van audioSource
+    }
+
     public void Shoot()
     {
         if (Time.time - lastFireTime < fireRate) return;
@@ -21,12 +38,17 @@ public class Weapon : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            // Zorg dat kogel in de "voorwaartse" richting van firePoint gaat
             rb.linearVelocity = firePoint.forward * bulletSpeed;
         }
 
         // Vernietig kogel na 1 seconde
         Destroy(bullet, 1f);
+
+        // Speel het schotgeluid zachter
+        if (shootSound != null)
+        {
+            audioSource.PlayOneShot(shootSound, shootVolume);
+        }
 
         lastFireTime = Time.time;
     }
