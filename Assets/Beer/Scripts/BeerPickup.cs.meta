@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 95c8410e530dc834888c60d6e5e31c2b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - promptText: {instanceID: 0}
+  - openBottleSound: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
+  - drinkSound: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
