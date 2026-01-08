@@ -2349,9 +2349,17 @@ PrefabInstance:
       value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: drinkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: promptText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: openBottleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
     - target: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: m_Name
       value: empty_beer_bottle 1 (2)
@@ -3158,9 +3166,17 @@ PrefabInstance:
       value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: drinkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: promptText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: openBottleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
     - target: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: m_Name
       value: empty_beer_bottle 1 (1)
@@ -3376,9 +3392,17 @@ PrefabInstance:
       value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: drinkSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: promptText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3872449863086263590, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
+      propertyPath: openBottleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
     - target: {fileID: 5891978874239184010, guid: 835d5558fcfbad149b8444fb17903ea4, type: 3}
       propertyPath: m_Name
       value: empty_beer_bottle 1
@@ -3917,6 +3941,7 @@ MonoBehaviour:
   bulletSpeed: 50
   fireRate: 0.5
   shootSound: {fileID: 8300000, guid: 29ca9b84c46239b4bb38df021a833033, type: 3}
+  shootVolume: 0.5
 --- !u!4 &1661587100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4093776985632717446, guid: d9a06415c925dc64f9feacd5e19b1449, type: 3}

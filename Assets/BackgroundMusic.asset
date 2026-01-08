@@ -47,7 +47,7 @@ AudioRandomContainer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BackgroundMusic
-  m_Volume: -5
+  m_Volume: -12
   m_Pitch: 0
   m_AutomaticTriggerTime: 0.01
   m_LoopCount: 1
@@ -64,7 +64,7 @@ AudioRandomContainer:
   - {fileID: 1536880612317180480}
   - {fileID: 8694919859085283391}
   m_AvoidRepeatingLast: 0
-  m_PlaybackMode: 1
+  m_PlaybackMode: 0
   m_TriggerMode: 1
   m_AutomaticTriggerMode: 1
   m_LoopMode: 0

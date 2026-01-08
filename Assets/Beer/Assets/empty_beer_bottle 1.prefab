@@ -121,3 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeerPickup
   promptText: {fileID: 9044680936755524845, guid: 43965d8f196fa3f4aa8d3824d86b8ed0, type: 3}
   healAmount: 50
+  openBottleSound: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
+  drinkSound: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
+  audioVolume: 1
+  pitchMin: 0.95
+  pitchMax: 1.05

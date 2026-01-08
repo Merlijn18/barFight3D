@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Audio")]
     public AudioClip shootSound;      // geluidsbestand voor schot
-    [Range(0f, 1f)] public float shootVolume = 0.5f; // volume, 0 = stil, 1 = max
+    [Range(0f, 1f)] public float shootVolume = 1f; // volume, 0 = stil, 1 = max
     private AudioSource audioSource;  // audio source component
 
     private void Awake()
