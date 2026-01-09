@@ -14,6 +14,10 @@ public class PlayerBeerSystem : MonoBehaviour
     [Header("Vomit Settings")]
     public ParticleSystem vomitParticles;
 
+    [Header("Vomit Sound")]
+    public AudioSource audioSource;
+    public AudioClip vomitSound;
+
     [Header("Camera Effects")]
     public Camera mainCam;
     public Material blurMaterial;
@@ -107,5 +111,10 @@ public class PlayerBeerSystem : MonoBehaviour
 
         vomitParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         vomitParticles.Play();
+
+        if (audioSource != null && vomitSound != null)
+        {
+            audioSource.PlayOneShot(vomitSound);
+        }
     }
 }
