@@ -1,11 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerBeerSystem : MonoBehaviour
 {
     [Header("Beer Settings")]
     public float drunkness = 0f;
     public float maxDrunkness = 1f;
-    public float effectDuration = 25f; // Langer effect
+    public float drunknessPerBeer = 0.2f; // 🔥 meer dronken per biertje
+    public float effectDuration = 25f;
     public float buildUpTime = 5f;
 
     [Header("Camera Effects")]
@@ -19,11 +20,16 @@ public class PlayerBeerSystem : MonoBehaviour
 
     private float timer = 0f;
     private bool isDrunk = false;
+    private float targetDrunkness = 0f;
 
     public void DrinkBeer()
     {
         isDrunk = true;
         timer = 0f;
+
+        // 🍺 Stapel dronkenschap
+        targetDrunkness += drunknessPerBeer;
+        targetDrunkness = Mathf.Clamp(targetDrunkness, 0f, maxDrunkness);
     }
 
     private void Update()
@@ -32,20 +38,23 @@ public class PlayerBeerSystem : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Opbouw
+        // Opbouw naar huidige targetDrunkness
         if (timer <= buildUpTime)
-            drunkness = Mathf.Lerp(0, maxDrunkness, timer / buildUpTime);
-        // Max
-        else if (timer > buildUpTime && timer < (effectDuration - buildUpTime))
-            drunkness = maxDrunkness;
-        // Afbouw
-        else if (timer >= (effectDuration - buildUpTime) && timer <= effectDuration)
-            drunkness = Mathf.Lerp(0, maxDrunkness, (effectDuration - timer) / buildUpTime);
-        else
         {
-            drunkness = 0;
-            timer = 0;
-            isDrunk = false;
+            drunkness = Mathf.Lerp(drunkness, targetDrunkness, Time.deltaTime);
+        }
+        // Afbouw
+        else if (timer >= effectDuration)
+        {
+            drunkness = Mathf.Lerp(drunkness, 0f, Time.deltaTime);
+            targetDrunkness = drunkness;
+
+            if (drunkness <= 0.01f)
+            {
+                drunkness = 0f;
+                targetDrunkness = 0f;
+                isDrunk = false;
+            }
         }
 
         ApplyEffects();
@@ -55,15 +64,12 @@ public class PlayerBeerSystem : MonoBehaviour
     {
         if (mainCam != null)
         {
-            // Extra wobble: sin + cos voor pitch, yaw en roll
             float roll = Mathf.Sin(Time.time * 3f) * rollStrength * drunkness;
             float pitch = Mathf.Cos(Time.time * 2.5f) * pitchStrength * drunkness;
             float yaw = Mathf.Sin(Time.time * 2f) * yawStrength * drunkness;
 
-            // Haal huidige rotatie op zodat X en Y (muiskijk) behouden blijven
             Vector3 currentRotation = mainCam.transform.localEulerAngles;
 
-            // Combineer bestaande rotatie met de dronken wobble
             mainCam.transform.localRotation = Quaternion.Euler(
                 currentRotation.x + pitch,
                 currentRotation.y + yaw,
@@ -73,9 +79,7 @@ public class PlayerBeerSystem : MonoBehaviour
 
         if (blurMaterial != null)
         {
-            float blurStrength = Mathf.Lerp(0f, 1f, drunkness);
-            blurMaterial.SetFloat("_Strength", blurStrength);
+            blurMaterial.SetFloat("_Strength", drunkness);
         }
     }
-
 }
