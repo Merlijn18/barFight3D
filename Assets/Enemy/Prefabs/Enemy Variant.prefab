@@ -165,8 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   foreground: {fileID: 3932419401166889265}
-  background: {fileID: 2690573447112520258}
-  enemy: {fileID: 5947468910667963225}
 --- !u!1 &6927824606544224910
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +275,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1963959885526842044, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3819657360962741995, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
       propertyPath: m_Height
       value: 7.19
@@ -342,14 +344,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7590812424898847644, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
   m_PrefabInstance: {fileID: 2387901205529058242}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5947468910667963225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8334509280195657883, guid: d79704507c5c7d04c9768d5edd207281, type: 3}
-  m_PrefabInstance: {fileID: 2387901205529058242}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0b07dbef05f57468bfc4c250467fef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
