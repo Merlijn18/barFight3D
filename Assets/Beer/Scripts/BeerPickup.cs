@@ -52,38 +52,43 @@ public class BeerPickup : MonoBehaviour
     // Coroutine die alles afhandelt: geluid, heal, respawn, verwijderen
     private IEnumerator DrinkBeerSequence()
     {
-        // Speel openen fles geluid
+        // Zet mesh en collider uit zodat het bier meteen "weg" is
+        GetComponent<Collider>().enabled = false;
+
+        foreach (var r in GetComponentsInChildren<Renderer>())
+            r.enabled = false;
+
+        // UI weg
+        if (promptText != null)
+            promptText.text = "";
+
+        // Geluid openen fles
         if (openBottleSound != null)
             audioSource.PlayOneShot(openBottleSound, audioVolume);
 
-        // Start dronken effect
+        // Effecten
         player.DrinkBeer();
 
-        // Heal speler
         if (playerHealth != null)
             playerHealth.Heal(healAmount);
 
-        // Speel drink geluid 4 keer hoorbaar
+        // Drinkgeluid
         if (drinkSound != null)
         {
             for (int i = 0; i < 4; i++)
             {
                 audioSource.PlayOneShot(drinkSound, audioVolume);
-                yield return new WaitForSeconds(drinkSound.length * 0.9f); // wacht bijna tot het geluid klaar is
+                yield return new WaitForSeconds(drinkSound.length * 0.9f);
             }
         }
 
-        // Verwijder UI prompt
-        if (promptText != null)
-            promptText.text = "";
-
-        // Respawn bier na 10 seconden
+        // Respawn
         if (BeerSpawnManager.Instance != null)
             BeerSpawnManager.Instance.RespawnBeer(transform.position, transform.rotation, 10f);
 
-        // Verwijder het bierobject pas NA het afspelen van alle geluiden
         Destroy(gameObject);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
