@@ -8314,9 +8314,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponUser
   weapon: {fileID: 1661587099}
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 09ee33600cf56927bce9ba48c2c775a6a59af3bb
 --- !u!114 &794646350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8427,11 +8424,8 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-<<<<<<< HEAD
 =======
 >>>>>>> main
-=======
->>>>>>> 09ee33600cf56927bce9ba48c2c775a6a59af3bb
 --- !u!1 &799441051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -885158777706257356, guid: ea73135d87181ae4f9846f718942e4e9, type: 3}
@@ -10696,20 +10690,14 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 794646349}
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 09ee33600cf56927bce9ba48c2c775a6a59af3bb
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 613eedeaa32602c4f85cfa6ea413193d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 794646350}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 613eedeaa32602c4f85cfa6ea413193d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 794646351}
-<<<<<<< HEAD
 =======
 >>>>>>> main
-=======
->>>>>>> 09ee33600cf56927bce9ba48c2c775a6a59af3bb
   m_SourcePrefab: {fileID: 100100000, guid: 613eedeaa32602c4f85cfa6ea413193d, type: 3}
 --- !u!64 &1785899234
 MeshCollider:
