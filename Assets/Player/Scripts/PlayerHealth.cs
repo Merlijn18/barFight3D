@@ -225,6 +225,7 @@ public class PlayerHealth : MonoBehaviour
     {
         while (currentHealth > 0 && currentHealth <= heartbeatStartHealth)
         {
+            heartbeatSource.pitch = Mathf.Lerp(1f, 2f, 1f - ((float)currentHealth / heartbeatStartHealth));
             heartbeatSource.PlayOneShot(heartbeatSound, heartbeatVolume *10);
 
             float t = (float)currentHealth / heartbeatStartHealth;
