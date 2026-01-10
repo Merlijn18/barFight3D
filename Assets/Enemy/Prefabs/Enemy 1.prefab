@@ -456,10 +456,11 @@ MonoBehaviour:
   chaseRange: 10000
   attackRange: 2
   attackCooldown: 1.5
-  damage: 5
+  damage: 25
   maxHealth: 100
   currentHealth: 0
   speedMultiplier: 0.5
+  slopeSpeedBoost: 2.5
   groundCheckDistance: 2
   maxSlopeAngle: 50
   healthBar: {fileID: 0}

@@ -181,6 +181,21 @@ MonoBehaviour:
   chaseRange: 10
   attackRange: 2
   attackCooldown: 1.5
+  damage: 25
+  maxHealth: 100
+  currentHealth: 0
+  speedMultiplier: 0.5
+  slopeSpeedBoost: 2.5
+  groundCheckDistance: 2
+  maxSlopeAngle: 50
+  healthBar: {fileID: 0}
+  deathSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  deathVolume: 1
+  damageVolume: 0.6
+  hitBloodParticles: {fileID: 0}
+  deathBloodParticles: {fileID: 0}
+  bloodSpawnPoint: {fileID: 0}
 --- !u!95 &1969579904550646595
 Animator:
   serializedVersion: 7
