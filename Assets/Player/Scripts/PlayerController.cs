@@ -7,6 +7,10 @@ public class PlayerControllerWithAnimation : MonoBehaviour
     public float moveSpeed = 5f;
     public float lookSensitivity = 0.1f;
 
+    [Header("Slope Handling")]
+    public float playerHeight = 2f;
+    public float maxSlopeAngle = 50f;
+
     [Header("References")]
     public Transform playerCamera;
     public Animator animator;
@@ -18,19 +22,20 @@ public class PlayerControllerWithAnimation : MonoBehaviour
 
     private float xRotation = 0f;
 
+    private RaycastHit slopeHit;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Wordt aangeroepen door Player Input component (Unity Events)
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    // Wordt aangeroepen door Player Input component (Unity Events)
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
@@ -38,7 +43,6 @@ public class PlayerControllerWithAnimation : MonoBehaviour
 
     void Update()
     {
-        // Kijk rond met muis/controller
         float mouseX = lookInput.x * lookSensitivity;
         float mouseY = lookInput.y * lookSensitivity;
 
@@ -48,15 +52,38 @@ public class PlayerControllerWithAnimation : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
 
-        // Zet animator parameter Speed op basis van beweging
         float speed = moveInput.magnitude;
         animator.SetFloat("Speed", speed);
     }
 
     void FixedUpdate()
     {
-        // Beweging via Rigidbody MovePosition
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+
+        // ?? Slope fix zoals in je Advanced controller
+        if (OnSlope())
+        {
+            Vector3 slopeMoveDir = Vector3.ProjectOnPlane(move, slopeHit.normal);
+            rb.MovePosition(rb.position + slopeMoveDir * moveSpeed * Time.fixedDeltaTime);
+            rb.useGravity = false;
+        }
+        else
+        {
+            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+            rb.useGravity = true;
+        }
+    }
+
+    // ===== SLOPE CODE UIT JE ANDERE SCRIPT =====
+
+    bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
     }
 }

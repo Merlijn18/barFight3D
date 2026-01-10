@@ -20,7 +20,12 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Movement")]
     [Range(0.1f, 1f)]
-    public float speedMultiplier = 0.5f; // 🔻 50% slomer
+    public float speedMultiplier = 0.5f; // base enemy speed
+    public float slopeSpeedBoost = 2.5f; // multiplier voor snelheid omhoog
+
+    [Header("Slope Handling")]
+    public float groundCheckDistance = 2f;
+    public float maxSlopeAngle = 50f;
 
     [Header("UI")]
     public Slider healthBar;
@@ -40,6 +45,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     private float lastAttackTime = -999f;
+
+    private RaycastHit slopeHit;
 
     public Action<GameObject> onDeath;
     public int CurrentHealth => currentHealth;
@@ -73,7 +80,9 @@ public class EnemyAI : MonoBehaviour
         if (agent != null)
         {
             agent.stoppingDistance = attackRange;
-            agent.speed *= speedMultiplier; // ✅ enemy langzamer
+            agent.speed *= speedMultiplier;
+            agent.updateRotation = true;
+            agent.updateUpAxis = true;
         }
 
         if (healthBar != null)
@@ -102,6 +111,22 @@ public class EnemyAI : MonoBehaviour
         if (agent != null && agent.enabled)
         {
             agent.isStopped = false;
+
+            // Slope check
+            if (OnSlope())
+            {
+                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
+
+                // sneller omhoog lopen: hoe steiler de helling, hoe meer snelheid
+                float speedFactor = 1f + (slopeAngle / maxSlopeAngle) * (slopeSpeedBoost - 1f);
+                agent.speed = speedMultiplier * speedFactor;
+            }
+            else
+            {
+                agent.speed = speedMultiplier;
+            }
+
+            // NavMeshAgent doet zelf de slope correct
             agent.SetDestination(player.position);
         }
 
@@ -223,5 +248,16 @@ public class EnemyAI : MonoBehaviour
                 Time.deltaTime * 5f
             );
         }
+    }
+
+    // ===== SLOPE FUNCTIONS =====
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, groundCheckDistance))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle > 0 && angle < maxSlopeAngle;
+        }
+        return false;
     }
 }
