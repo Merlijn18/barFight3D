@@ -467,6 +467,9 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: 9679c8150ec3da641b3dde7bbb9a0c93, type: 3}
   deathVolume: 1
   damageVolume: 1
+  hitBloodParticles: {fileID: 5306240199782264079, guid: 4160fd494a463624a83428322a455154, type: 3}
+  deathBloodParticles: {fileID: 7937208857444717112, guid: dac921eab495fdc4ab3c5aa255d58fa6, type: 3}
+  bloodSpawnPoint: {fileID: 0}
 --- !u!95 &6981879047485622634
 Animator:
   serializedVersion: 7

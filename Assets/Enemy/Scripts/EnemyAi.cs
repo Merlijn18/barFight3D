@@ -36,6 +36,11 @@ public class EnemyAI : MonoBehaviour
     [Range(0f, 1f)] public float deathVolume = 1f;
     [Range(0f, 1f)] public float damageVolume = 0.6f;
 
+    [Header("Blood Effects")]
+    public ParticleSystem hitBloodParticles;
+    public ParticleSystem deathBloodParticles;
+    public Transform bloodSpawnPoint;
+
     private AudioSource audioSource;
     private NavMeshAgent agent;
     private Animator animator;
@@ -175,6 +180,16 @@ public class EnemyAI : MonoBehaviour
         if (healthBar != null)
             healthBar.value = currentHealth;
 
+        // 🩸 BLOED BIJ HIT
+        if (hitBloodParticles != null)
+        {
+            Instantiate(
+                hitBloodParticles,
+                bloodSpawnPoint != null ? bloodSpawnPoint.position : transform.position,
+                Quaternion.identity
+            );
+        }
+
         if (damageSound != null && audioSource != null)
             audioSource.PlayOneShot(damageSound, damageVolume);
 
@@ -184,10 +199,21 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger("hit");
     }
 
+
     private void Die()
     {
         if (agent != null)
             agent.enabled = false;
+
+        // 🩸 EXTRA BLOED BIJ DOOD
+        if (deathBloodParticles != null)
+        {
+            Instantiate(
+                deathBloodParticles,
+                bloodSpawnPoint != null ? bloodSpawnPoint.position : transform.position,
+                Quaternion.identity
+            );
+        }
 
         if (animator != null)
             animator.SetTrigger("die");
@@ -204,6 +230,7 @@ public class EnemyAI : MonoBehaviour
             Destroy(gameObject, 3f);
         }
     }
+
 
     private void RotateTowardsPlayer()
     {
