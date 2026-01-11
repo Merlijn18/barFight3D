@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class BeerSpawnManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class BeerSpawnManager : MonoBehaviour
     public Transform[] spawnZones;       // Spawnlocaties
 
     [Header("UI")]
-    public UnityEngine.UI.Text promptText; // Sleep hier je Canvas Text in
+    public TextMeshProUGUI promptText;   // TMP Text (UI) met alleen "E"
 
     private void Awake()
     {
@@ -42,17 +43,16 @@ public class BeerSpawnManager : MonoBehaviour
 
         Quaternion uprightRotation = Quaternion.Euler(-89.98f, 0f, 0f);
 
-        // Instantiate de nieuwe beer
         GameObject newBeer = Instantiate(beerPrefab, pos, uprightRotation);
 
-        // Koppel promptText
+        // Koppel TMP prompt
         BeerPickup beerPickup = newBeer.GetComponent<BeerPickup>();
         if (beerPickup != null)
         {
             beerPickup.promptText = promptText;
         }
 
-        // Zorg dat collider exact gelijk is aan prefab
+        // Collider exact kopiëren
         Collider originalCol = beerPrefab.GetComponent<Collider>();
         Collider cloneCol = newBeer.GetComponent<Collider>();
 
@@ -60,22 +60,17 @@ public class BeerSpawnManager : MonoBehaviour
         {
             cloneCol.isTrigger = originalCol.isTrigger;
 
-            // BoxCollider
             if (originalCol is BoxCollider originalBox && cloneCol is BoxCollider cloneBox)
             {
                 cloneBox.center = originalBox.center;
                 cloneBox.size = originalBox.size;
             }
-
-            // SphereCollider
-            if (originalCol is SphereCollider originalSphere && cloneCol is SphereCollider cloneSphere)
+            else if (originalCol is SphereCollider originalSphere && cloneCol is SphereCollider cloneSphere)
             {
                 cloneSphere.center = originalSphere.center;
                 cloneSphere.radius = originalSphere.radius;
             }
-
-            // CapsuleCollider
-            if (originalCol is CapsuleCollider originalCapsule && cloneCol is CapsuleCollider cloneCapsule)
+            else if (originalCol is CapsuleCollider originalCapsule && cloneCol is CapsuleCollider cloneCapsule)
             {
                 cloneCapsule.center = originalCapsule.center;
                 cloneCapsule.radius = originalCapsule.radius;

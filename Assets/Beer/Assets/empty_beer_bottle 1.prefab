@@ -78,6 +78,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 65958e2987a976c43a633b2fa9334eec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3872449863086263590}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 65958e2987a976c43a633b2fa9334eec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5689260448760131137}
   m_SourcePrefab: {fileID: 100100000, guid: 65958e2987a976c43a633b2fa9334eec, type: 3}
 --- !u!1 &5891978874239184010 stripped
 GameObject:
@@ -119,10 +122,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c8410e530dc834888c60d6e5e31c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeerPickup
-  promptText: {fileID: 9044680936755524845, guid: 43965d8f196fa3f4aa8d3824d86b8ed0, type: 3}
+  promptText: {fileID: 0}
   healAmount: 50
   openBottleSound: {fileID: 8300000, guid: 4581677b5d79f3542beaf87a1a1a48df, type: 3}
   drinkSound: {fileID: 8300000, guid: 9e55169e1c97eec4ea8acca0d8c3419a, type: 3}
   audioVolume: 1
-  pitchMin: 0.95
-  pitchMax: 1.05
+  interactAction: {fileID: 8737095738498551053, guid: 89053465e58ea324cb201d05f5cd17f7, type: 3}
+--- !u!82 &-5689260448760131137
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891978874239184010}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 1
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
