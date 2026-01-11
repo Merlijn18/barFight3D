@@ -2,12 +2,14 @@
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
+using TMPro;
+
 
 [RequireComponent(typeof(Collider))]
 public class BeerPickup : MonoBehaviour
 {
     [Header("UI")]
-    public Text promptText;
+    public TextMeshProUGUI promptText;
 
     [Header("Health")]
     public int healAmount = 50;
@@ -17,32 +19,38 @@ public class BeerPickup : MonoBehaviour
     public AudioClip drinkSound;
     [Range(0f, 1f)] public float audioVolume = 1f;
 
-    private bool inRange = false;
+    private bool inRange;
     private PlayerBeerSystem player;
     private PlayerHealth playerHealth;
     private AudioSource audioSource;
 
+    // Input System
+    //private PlayerInputActions inputActions;
+    public InputActionReference interactAction;
+
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-            audioSource = gameObject.AddComponent<AudioSource>();
-
-        audioSource.spatialBlend = 0f; // 2D geluid
+        audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 0f;
         audioSource.volume = audioVolume;
-        audioSource.playOnAwake = false;
+
+    }
+    private void OnEnable()
+    {
+        if (interactAction != null)
+            interactAction.action.performed += OnInteract;
     }
 
-    private void Reset()
+    private void OnDisable()
     {
-        Collider col = GetComponent<Collider>();
-        if (col != null)
-            col.isTrigger = true;
+        if (interactAction != null)
+            interactAction.action.performed -= OnInteract;
     }
 
-    private void Update()
+
+    private void OnInteract(InputAction.CallbackContext context)
     {
-        if (inRange && player != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (inRange && player != null)
         {
             // Start het bierdrinkproces
             StartCoroutine(DrinkBeerSequence());
@@ -60,9 +68,8 @@ public class BeerPickup : MonoBehaviour
 
         // UI weg
         if (promptText != null)
-            promptText.text = "";
+            promptText.gameObject.SetActive(false);
 
-        // Geluid openen fles
         if (openBottleSound != null)
             audioSource.PlayOneShot(openBottleSound, audioVolume);
 
@@ -92,31 +99,30 @@ public class BeerPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerBeerSystem p = other.GetComponent<PlayerBeerSystem>();
-        PlayerHealth h = other.GetComponentInChildren<PlayerHealth>();
+        player = other.GetComponent<PlayerBeerSystem>();
+        playerHealth = other.GetComponentInChildren<PlayerHealth>();
 
-        if (p != null)
+        if (player != null)
         {
             inRange = true;
-            player = p;
-            playerHealth = h;
+            //player = p;
+            //playerHealth = h;
 
             if (promptText != null)
-                promptText.text = $"Druk [E] om bier te drinken (+{healAmount} HP)";
+                promptText.gameObject.SetActive(true); // alleen "E"
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerBeerSystem p = other.GetComponent<PlayerBeerSystem>();
-        if (p != null)
+        if (other.GetComponent<PlayerBeerSystem>() != null)
         {
             inRange = false;
             player = null;
             playerHealth = null;
 
             if (promptText != null)
-                promptText.text = "";
+                promptText.gameObject.SetActive(false);
         }
     }
 }
