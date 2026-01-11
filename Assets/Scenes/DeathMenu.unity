@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 1778619762}
   - component: {fileID: 1778619761}
   - component: {fileID: 1778619760}
+  - component: {fileID: 1778619763}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -1152,9 +1153,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 200996774}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ExitGame
+      - m_Target: {fileID: 1778619763}
+        m_TargetAssemblyTypeName: QuitScript, Assembly-CSharp
+        m_MethodName: GoToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1202,6 +1203,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778619758}
   m_CullTransparentMesh: 1
+--- !u!114 &1778619763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778619758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d714071155f2340939e73dd55a38fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuitScript
 --- !u!1 &2049686917
 GameObject:
   m_ObjectHideFlags: 0
