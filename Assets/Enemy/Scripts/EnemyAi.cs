@@ -46,6 +46,9 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private float lastAttackTime = -999f;
 
+    [Header("ScoreBoard")]
+    public int scoreValue = 0;
+
     private RaycastHit slopeHit;
 
     public Action<GameObject> onDeath;
@@ -204,6 +207,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (agent != null)
             agent.enabled = false;
+
+        ScoreManager.instance.AddScore(scoreValue);
 
         // 🩸 EXTRA BLOED BIJ DOOD
         if (deathBloodParticles != null)

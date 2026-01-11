@@ -251,6 +251,6 @@ public class PlayerHealth : MonoBehaviour
     {
         StopHeartbeat();
         Debug.Log("PLAYER IS DEAD");
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("DeathMenu");
     }
 }

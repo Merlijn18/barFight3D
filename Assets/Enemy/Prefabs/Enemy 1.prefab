@@ -459,7 +459,7 @@ MonoBehaviour:
   damage: 25
   maxHealth: 100
   currentHealth: 0
-  speedMultiplier: 0.5
+  speedMultiplier: 1
   slopeSpeedBoost: 2.5
   groundCheckDistance: 2
   maxSlopeAngle: 50
@@ -471,6 +471,7 @@ MonoBehaviour:
   hitBloodParticles: {fileID: 5306240199782264079, guid: 4160fd494a463624a83428322a455154, type: 3}
   deathBloodParticles: {fileID: 7937208857444717112, guid: dac921eab495fdc4ab3c5aa255d58fa6, type: 3}
   bloodSpawnPoint: {fileID: 0}
+  scoreValue: 1
 --- !u!95 &6981879047485622634
 Animator:
   serializedVersion: 7
