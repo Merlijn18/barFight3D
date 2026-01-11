@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Menu : MonoBehaviour
 {
@@ -31,6 +32,16 @@ public class Menu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        if (ScoreManager.instance != null)
+        {
+            ScoreManager.instance.score = 0;
+        }
+        else
+        {
+            Debug.LogWarning("ScoreManager not found!");
+        }
+
+        ScoreManager.instance.score = 0;
         SceneManager.LoadScene("Main");
     }
 
