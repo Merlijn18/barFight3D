@@ -94,7 +94,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
-            rb.velocity = firePoint.forward * bulletSpeed;
+            rb.linearVelocity = firePoint.forward * bulletSpeed;
 
         Destroy(bullet, 1f);
 
